@@ -10,7 +10,7 @@ def home():
 
 @app.route('/',methods=['POST'])
 def predict():
-    body = request.get_json()
+    body = (request.get_json())['input']
     prediction = model.predict(np.array([[body['productId'],body['factoryId'],body['amount']]]))
     return jsonify({'productionTime': prediction[0][0]})
 
