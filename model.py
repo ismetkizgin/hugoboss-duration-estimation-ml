@@ -20,7 +20,7 @@ query= """query getProductionFlows {
     amount
   }
 }"""
-response = requests.post('https://api.hugoboss.ismetkizgin.com.tr/v1/graphql', json={'query': query}, headers={"x-hasura-admin-secret":"J!#LSC4#/x.n4uVt"})
+response = requests.post('api_url', json={'query': query}, headers={"x-hasura-admin-secret":"admin_secret"})
 productionFlows = response.json()['data']['production_flows']
 
 df = pd.DataFrame(list(map(dataMap, productionFlows)))
@@ -30,6 +30,5 @@ y = df.iloc[:,3:4].values.reshape(-1,1)
 
 model = LinearRegression()
 model.fit(x,y)
-
 
 pickle.dump(model, open('model.pkl','wb'))
